@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.aprendiz.ragp.quindioturistico3b.R;
+import com.aprendiz.ragp.quindioturistico3b.maps.Restaurantes;
 import com.aprendiz.ragp.quindioturistico3b.maps.Todos;
 
 
@@ -69,7 +70,7 @@ public class FragmentRestaurante extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getActivity(), Todos.class);
+                Intent intent = new Intent(getActivity(), Restaurantes.class);
                 startActivity(intent);
             }
         });
