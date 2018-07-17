@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.aprendiz.ragp.quindioturistico3b.R;
 import com.aprendiz.ragp.quindioturistico3b.maps.Todos;
+import com.aprendiz.ragp.quindioturistico3b.models.Sitio;
 
 
 /**
@@ -69,8 +70,8 @@ public class FragmentSitio extends Fragment {
         sit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Todos.class);
-                startActivity(intent);
+                Intent intent = new Intent(getActivity(), Sitio.class);
+               startActivity(intent);
             }
         });
 
