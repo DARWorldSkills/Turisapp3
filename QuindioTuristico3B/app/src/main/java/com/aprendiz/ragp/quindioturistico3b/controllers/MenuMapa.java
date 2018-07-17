@@ -3,6 +3,7 @@ package com.aprendiz.ragp.quindioturistico3b.controllers;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +15,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.aprendiz.ragp.quindioturistico3b.R;
+import com.aprendiz.ragp.quindioturistico3b.fragments.FragmentHotel;
+import com.aprendiz.ragp.quindioturistico3b.fragments.FragmentInicio;
+import com.aprendiz.ragp.quindioturistico3b.fragments.FragmentRestaurante;
+import com.aprendiz.ragp.quindioturistico3b.fragments.FragmentSitio;
 
 public class MenuMapa extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -25,15 +30,6 @@ public class MenuMapa extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -42,6 +38,7 @@ public class MenuMapa extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
     }
 
     @Override
@@ -82,17 +79,27 @@ public class MenuMapa extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        Fragment fragment = null;
 
-        } else if (id == R.id.nav_slideshow) {
+        if (id == R.id.nav_inicio) {
 
-        } else if (id == R.id.nav_manage) {
+            fragment = new FragmentInicio();
+            getSupportFragmentManager().beginTransaction().replace(R.id.Contenedor, fragment).commit();
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_hotel) {
 
-        } else if (id == R.id.nav_send) {
+            fragment = new FragmentHotel();
+            getSupportFragmentManager().beginTransaction().replace(R.id.Contenedor, fragment).commit();
+
+        } else if (id == R.id.nav_restaura) {
+
+            fragment = new FragmentRestaurante();
+            getSupportFragmentManager().beginTransaction().replace(R.id.Contenedor, fragment).commit();
+
+        } else if (id == R.id.nav_sitios) {
+
+            fragment = new FragmentSitio();
+            getSupportFragmentManager().beginTransaction().replace(R.id.Contenedor, fragment).commit();
 
         }
 
