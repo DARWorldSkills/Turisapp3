@@ -48,7 +48,10 @@
             android:label="@string/title_activity_restaurantes" />
         <activity
             android:name=".maps.Sitios"
-            android:label="@string/title_activity_sitios"></activity>
+            android:label="@string/title_activity_sitios" />
+        <activity
+            android:name=".maps.Ubi"
+            android:label="@string/title_activity_ubi"></activity>
     </application>
 
 </manifest>

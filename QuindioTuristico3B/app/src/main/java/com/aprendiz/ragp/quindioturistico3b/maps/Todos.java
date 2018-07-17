@@ -1,11 +1,16 @@
 package com.aprendiz.ragp.quindioturistico3b.maps;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Camera;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
 import com.aprendiz.ragp.quindioturistico3b.R;
+import com.aprendiz.ragp.quindioturistico3b.models.GestorDB;
 import com.aprendiz.ragp.quindioturistico3b.models.ListasSitios;
+import com.aprendiz.ragp.quindioturistico3b.models.Sitio;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -13,6 +18,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.List;
 
 public class Todos extends FragmentActivity implements OnMapReadyCallback {
 
@@ -41,41 +48,28 @@ public class Todos extends FragmentActivity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
 
         // Add a marker in Sydney and move the camera
 
-        LatLng ubi1 = new LatLng(4.447555758701706, -75.78938483278806);
-        mMap.addMarker(new MarkerOptions().position(ubi1).title("Allure Aroma Mocawa Hotel"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(ubi1));
+        GestorDB gestorDB = new GestorDB(this);
+        List<Sitio> resultados = gestorDB.listarSitios("hotel");
 
-
-        LatLng ubi2 = new LatLng(4.45234778794663, -75.78196047823484);
-        mMap.addMarker(new MarkerOptions().position(ubi2).title("Hotel Bolivar Plaza"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(ubi2));
-
-        LatLng ubi3 = new LatLng(4.624838213794354, -75.762595160852);
-        mMap.addMarker(new MarkerOptions().position(ubi3).title("Hotel Bolivar Plaza"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(ubi3));
-
-        LatLng ubi4 = new LatLng(4.637932138866702, -75.57060538862306);
-        mMap.addMarker(new MarkerOptions().position(ubi4).title("Hotel Zuldemayda"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(ubi4));
-
-        LatLng ubi5 = new LatLng(4.622357223916545, -75.76650045717768);
-        mMap.addMarker(new MarkerOptions().position(ubi5).title("Hotel Decameron Panaca"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(ubi5));
-
-        LatLng ubi6 = new LatLng(4.621929466163072, -75.76083563173823);
-        mMap.addMarker(new MarkerOptions().position(ubi6).title("Decameron Las Heliconias"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(ubi6));
-
-        LatLng ubi7 = new LatLng(4.5659102936329115, -75.75595653681637);
-        mMap.addMarker(new MarkerOptions().position(ubi7).title("Hotel Arrayanes del Quindio"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(ubi7));
-
-        LatLng ubi8 = new LatLng(4.566295305869581, -75.75057066111447);
-        mMap.addMarker(new MarkerOptions().position(ubi8).title("Finca Hotel La Esperanza"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(ubi8));
+        for (int i =0; i<resultados.size(); i++){
+            LatLng tmp = new LatLng(resultados.get(i).getLatitud(),resultados.get(i).getLongitud());
+            mMap.addMarker(new MarkerOptions().position(tmp).title(resultados.get(i).getNombre()));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(tmp));
+        }
 
 
     }
