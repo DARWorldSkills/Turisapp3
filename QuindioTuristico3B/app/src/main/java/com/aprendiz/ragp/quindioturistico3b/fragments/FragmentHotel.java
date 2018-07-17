@@ -6,12 +6,16 @@ import android.os.Bundle;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.aprendiz.ragp.quindioturistico3b.R;
 import com.aprendiz.ragp.quindioturistico3b.maps.Todos;
+import com.aprendiz.ragp.quindioturistico3b.models.Sitio;
 
 
 /**
@@ -29,6 +33,9 @@ public class FragmentHotel extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    RecyclerView recyclerView;
+    int posicion, detector=1, item;
+    Button btnCambiar;
 
     public FragmentHotel() {
         // Required empty public constructor
@@ -74,6 +81,17 @@ public class FragmentHotel extends Fragment {
                 startActivity(intent);
             }
         });
+        recyclerView= view.findViewById(R.id.recyclerHotel);
+        btnCambiar = view.findViewById(R.id.btnCambiar);
+        posicion = getActivity().getWindowManager().getDefaultDisplay().getRotation();
+        if (posicion== Surface.ROTATION_90 || posicion== Surface.ROTATION_270){
+            if (detector==1) {
+                item = R.layout.item_lista;
+            }else {
+                item = R.layout.item_land;
+            }
+        }
+
 
 
         return view;
